@@ -1,8 +1,8 @@
 package service
 
-import(
-	"brown/model"
+import (
 	"brown/dao"
+	"brown/model"
 )
 
 type LoginService interface {
@@ -19,7 +19,7 @@ func NewLoginServices() LoginService {
 	}
 }
 
-func (l loginServices) Login(user model.User) (result model.Result){
+func (l loginServices) Login(user model.User) (result model.Result) {
 	//添加
 	result.Data = l.dao.Login(user)
 	result.Msg = "Success"

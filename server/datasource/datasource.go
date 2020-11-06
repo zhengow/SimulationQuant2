@@ -1,10 +1,11 @@
 package datasource
 
 import (
-    _ "github.com/go-sql-driver/mysql"
-	"github.com/go-xorm/xorm"
-	"log"
 	"brown/model"
+	"log"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/go-xorm/xorm"
 )
 
 var (
@@ -14,7 +15,7 @@ var (
 func InstanceMaster() *xorm.Engine {
 	if masterEngine != nil {
 		return masterEngine
-	} 
+	}
 
 	engine, err := xorm.NewEngine("mysql", "root:123456@/test_db?charset=utf8")
 	if err != nil {
@@ -34,12 +35,12 @@ func InstanceMaster() *xorm.Engine {
 }
 
 func init() {
-    var err error
+	var err error
 	db, err := xorm.NewEngine("mysql", "root:123456@/test_db?charset=utf8")
 	if err != nil {
 		log.Fatal("数据库连接失败:", err)
 	}
-	if err := db.Sync2(new(model.User)); err != nil {
+	if err := db.Sync2(new(model.User), new(model.Prediction)); err != nil {
 		log.Fatal("数据表同步失败:", err)
 	}
 	masterEngine = db
